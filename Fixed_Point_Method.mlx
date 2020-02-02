@@ -1,0 +1,34 @@
+%Write a MATLAB function, called fixed_point_iteration that inputs a function, g, an initial guess x_0, an error tolerance, tol, 
+%and a maximum number of iterations, N, and outputs the fixed point of g, obtained using the fixed point iteration, starting with x_0. 
+
+%Your function should have an error defined by E= |x_n-x_{n-1} |, and stop when the error is less than the tolerance, 
+%or if the number of iterations exceeds N - whichever happens first. 
+
+%Your function header should look something like: function [c,n,err] = fixed_point_iteration(g,x0,tol,N)
+
+%Use the code you just developed to find the solution to the equations x=e^{-x} and x = 1/(1+x), with an accuracy of 10^{-10} for x in [-1, 1]
+
+g = @(x)(exp(-x));
+g1 = @(x)(1/(1+x));
+[c,n,err] = fixed_point_iteration(g,-1,10^(-10),100)
+[c1,n1,err1] = fixed_point_iteration(g1,-1,10^(-10),100)
+
+function[c,n,err] = fixed_point_iteration(g,x0,tol,N)
+n=1;
+x1 = g(x0);
+err = abs(x1-x0);
+while err>tol && n < N
+    c = g(x0);
+        if abs(c-x0) < tol
+            break
+        else
+            x0=x0+1;
+            x0=g(x0);
+        end
+       n=n+1;
+       x0=c;
+end
+n=n;
+
+plot(x0,g(x0));
+end

@@ -1,0 +1,43 @@
+f = @(t,y) (-12*y);
+
+
+[t6,y6] = AB4(f,0,1,20,1);
+[t7,y7] = AB4(f,0,1,50,1);
+[t8,y8] = AB4(f,0,1,100,1);
+plot(t6,y6,t7,y7,t8,y8);
+
+y=@(t)exp(-12*t);
+figure
+Err2 = abs([y6(end) y7(end) y8(end)]-y(1));
+loglog([20,50,100],Err2, '-*')
+
+function [t,y] = AB4(f,a,b,N,alpha)
+   t=zeros(N+1,1);
+    h = (b-a)/N;
+  for i = 1:N+1
+      t(i)=a+(i-1)*h;
+  end
+    
+    
+    y = zeros(N+1,1);
+  
+  
+         y(1) = alpha;
+    for i = 2:4
+      
+        k1=h*f(t(i-1),y(i-1));
+        
+        k2=h*f(t(i-1)+h/2,y(i-1)+k1/2);
+        
+        k3=h*f(t(i-1)+h/2,y(i-1)+k2/2);
+        
+        k4=h*f(t(i), y(i-1)+k3);
+        
+        y(i)= y(i-1)+(k1+2*k2+2*k3+k4)/6;
+    end
+    for i = 5:N+1
+        y(i)=y(i-1)+h/24*(55*f(t(i-1),y(i-1))...
+            -59*f(t(i-2),y(i-2))+37*f(t(i-3),y(i-3))...
+            -9*f(t(i-4),y(i-4)));
+    end
+end

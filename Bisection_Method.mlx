@@ -1,0 +1,43 @@
+%Write a MATLAB function, called bisection_method that inputs a function f, two numbers a,b, an error tolerance, tol, 
+%and a maximum number of iterations, N, and finds a root c of f in the interval [a,b] using the bisection method. 
+%Your function should compute a bound on the error, and stop when the error is less than the tolerance, 
+%or if the number of iterations exceeds N - whichever happens first.
+
+f = @(x)(2*x.^3+3*x-1)*cos(x)-x;
+%[c,n,err]=bisection_method(@(x)(2*x.^3 + 3*x-1)*cos(x)-x,-1,1,10^-5,100)
+[c,n,err] = bisection_method(f,-1,1,10^-5,100)
+
+
+function[c,n,err] = bisection_method(f,a,b,tol,N)
+n=1;
+%err= abs(x)
+x = (a+b)/2;
+err=abs(f(x));
+if f(x)==0
+    x=c;
+    err=0;
+    n=1;
+end
+
+while err > tol && n < N
+%while n < N
+    
+   if f(a) * f(x) < 0
+     b=x;
+   else
+      
+     a=x;
+   end
+   err=abs(f(x));
+   n=n+1;
+      x=(a+b)/2;
+      
+      
+end 
+    
+c=x;
+
+n=n;
+err=err;
+plot(x,f(x));
+end

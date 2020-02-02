@@ -1,0 +1,30 @@
+% function we want to integrate
+f = @(x) cos((pi*(x.^2))/2);
+
+% interval bound
+a = 0; b = pi;
+
+% number of subintervals
+n1 = 10^3;
+n2 = 10^5;
+
+% call and run the functions
+I1 = composite_trapezoid(f,a,b,n1)
+I2 = composite_trapezoid(f,a,b,n2)
+function s = composite_trapezoid(f,a,b,n)
+% subinterval width/step size/mesh size
+h = (b-a)/n;
+
+% initial value of the sum
+s = f(a)+ f(b);
+
+for i = 1:(n-1)
+    s = s + 2*f(a+i*h);
+end
+s = (h/2)*s;
+err1 = fresnelc(pi)
+err2 = fresnelc(pi)
+loglog(err1,err2)
+
+
+end

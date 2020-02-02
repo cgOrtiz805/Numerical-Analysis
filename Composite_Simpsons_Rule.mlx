@@ -1,0 +1,37 @@
+% function we want to integrate
+f = @(x) cos((pi*(x.^2))/2);
+
+% interval bound
+a = 0; b = pi;
+
+% number of subintervals
+n = 10^3;
+n1=10^5;
+
+% call and run the functions
+
+I3 = composite_simpsons(f,a,b,n)
+I4 =composite_simpsons(f,a,b,n1)
+
+function s = composite_simpsons(f,a,b,n)
+
+h = (b-a)/n;
+sI0 = f(a) + f(b);
+sI1 = 0; sI2 = 0;
+    % odd terms
+    for i = 1:n-1
+        x = a + i*h;
+        if mod(i,2) == 0
+            sI2 = sI2 + f(x);
+        else
+            sI1 = sI1 + f(x);
+        end 
+    end 
+    
+s = (h/3)*(sI0 + 2*sI2 + 4*sI1); 
+
+err3 = fresnelc(pi) - s
+err4 = fresnelc(pi)-s
+
+loglog(err3,err4,10^3,10^5)
+end

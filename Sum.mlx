@@ -1,0 +1,20 @@
+
+%Write a function called mysum that sums the first n positive numbers. 
+
+%Give the result x1 for n=20,and the result x2 for n=100.
+
+
+n=10;
+n=20;
+x1 = mysum(20);
+x2=mysum(100);
+
+function x1 = mysum( n )
+ x1=0;
+ 
+   for a = (1:n)
+       x1=x1+a;
+       
+   end
+   
+end

@@ -1,0 +1,46 @@
+datx = -3:1:3;
+
+x = -3:.01:3;
+
+daty1 = race(datx);
+
+
+P5= Newtons_divided_differences(x,datx,daty1)
+
+function y = race (i)
+j = size(i);
+n1 = j(1,2);
+for k=1:n1
+    x=i(1,k);
+    ans= exp(-x.^2);
+    
+y(1,k)=ans;
+end
+end
+
+
+
+function y = Newtons_divided_differences(x,datx,daty)
+n = length(datx);
+sm = 0
+s = length(x);
+N=1;
+pr=1;
+while N~=s+1
+    sm=0;
+for i = 1 : n
+    pr =1;
+    for j = 1 : n
+        if j ~= i 
+            pr = pr.*(x(N) - datx(j))/(datx(i) - datx(j));
+        end 
+    end 
+    sm = sm + daty(i)*pr;
+end
+y(N,1) = sm;
+N=N+1;
+end 
+
+plot(x,x)
+
+end

@@ -1,0 +1,27 @@
+
+
+
+f=@(x)(atan(x)-1);
+fp=@(x)1/(x.^2+1);
+[c,n,err] = newtons_method(f,fp,2,10^-8,100)
+
+function[c,n,err] = newtons_method(f,fp,x0,tol,N)
+n=0;
+x1 = f(x0);
+err = abs(x1-x0);
+
+if abs(fp(x0))==0
+        c=x0;       
+ end
+while err > tol && n < N
+    x0=x1;
+    x1 = x0 - (f(x0)/fp(x0));
+   
+    n=n+1;
+    err = abs(x1-x0);
+end
+err=err;
+n=4;
+c=x1;
+plot(x0,(x0))
+end
